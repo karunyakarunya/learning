@@ -1,0 +1,80 @@
+pipeline {
+    agent 'any'
+    stages {
+        stage('scm-clone') {
+            steps {
+                sh '''
+                rm -rf *
+                git clone 'https://github.com/karunyakarunya/learning.git'
+                '''
+            }
+        }
+         stage('project-str') {
+            steps {
+                sh '''
+                pwd
+                ls -ll
+                '''
+            }
+        }
+         stage('compilation') {
+            steps {
+                sh '''
+                pwd
+                ls -ll
+                cd learning
+                ls -ll
+                java -version
+                mvn --version
+                mvn clean
+                mvn compile
+                '''
+            }
+        }
+        stage('test') {
+            steps {
+                sh '''
+                pwd
+                ls -ll
+                cd learning
+                ls -ll
+                java -version
+                mvn --version
+                mvn clean
+                mvn test
+                '''
+            }
+        }
+        stage('sonar coverage') {
+            steps {
+                sh '''
+                pwd
+                ls -ll
+                cd learning
+                ls -ll
+                java -version
+                mvn --version
+                mvn clean
+                mvn compile
+                mvn test
+                mvn sonar:sonar
+                '''
+            }
+        }
+        stage('package') {
+            steps {
+                sh '''
+                pwd
+                ls -ll
+                cd learning
+                ls -ll
+                java -version
+                mvn --version
+                mvn clean
+                mvn package
+                '''
+            }
+        }
+    }
+}	   
+
